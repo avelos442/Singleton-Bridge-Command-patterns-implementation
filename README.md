@@ -14,4 +14,6 @@ Command- это паттерн проектирования, который по
 В данной прграмме интерфейс Command и несколько конкретных классов команд для различных операций, таких как включение/выключение устройств и изменение их настроек.
 
 # UML программы
-![hLHRQiCm4FpVK-odWsiV88IGqXU6baBf1LHvamXYkTXAQ6bozzgohAuIfmsudzwP7Ss-lAYDgCoss038ZQXhlAMTalGaj5XHXL-0cA3I3KjBceQenN8RgHj8IQDABQhFMMqgfLTNZZstl20pcZIn61_8P4uwcfoAntYTvrqm2YKRygvKkUMyK57kAA1nk7dZ6Ek-uG2WjA5gAIHXTbCMXT2](https://github.com/avelos442/Singleton-Bridge-Command-patterns-implementation/assets/77587037/cdaf8c77-8112-4d21-8e87-8a6712dc1b08)
+![fLHRJiCm4FptAVOpLKWF45LL4Iz50Y5HBc0bcs8fiL7iL23Qk-FOYR5R5uhwcPtPsTcfjokfQAVwjY6aRAYKS8jRLk8JvNI37NmHW0mOronUOXwY1gjCHMg8bOe9JhlFXLGTuvkhaRtKl1GUK1MZJ38x5ahXkgfiCGdRDNahM6KuBzYABGOq7zOp3Z7xJVQ4CAwmgsc9KDo8jgMyCjkbSFU](https://github.com/avelos442/Singleton-Bridge-Command-patterns-implementation/assets/77587037/346a376a-665d-4396-be67-4ffa1f6a3dd3)
+
+
