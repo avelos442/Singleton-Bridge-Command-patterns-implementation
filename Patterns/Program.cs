@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 // Singleton
@@ -49,31 +49,17 @@ public interface ICommand
 
 public class TurnOnCommand : ICommand
 {
-    private Device device;
-
-    public TurnOnCommand(Device device)
-    {
-        this.device = device;
-    }
-
     public void Execute()
     {
-        device.TurnOn();
+        Console.WriteLine("Command executed: Turn On");
     }
 }
 
 public class TurnOffCommand : ICommand
 {
-    private Device device;
-
-    public TurnOffCommand(Device device)
-    {
-        this.device = device;
-    }
-
     public void Execute()
     {
-        device.TurnOff();
+        Console.WriteLine("Command executed: Turn Off");
     }
 }
 
@@ -81,40 +67,45 @@ public class TurnOffCommand : ICommand
 public abstract class Device
 {
     protected IDeviceImplementation implementation;
+    protected ICommand onCommand;
+    protected ICommand offCommand;
 
     public Device(IDeviceImplementation implementation)
     {
         this.implementation = implementation;
     }
 
-    public abstract void TurnOn();
+    public void SetOnCommand(ICommand onCommand)
+    {
+        this.onCommand = onCommand;
+    }
 
-    public abstract void TurnOff();
+    public void SetOffCommand(ICommand offCommand)
+    {
+        this.offCommand = offCommand;
+    }
+
+    public void TurnOn()
+    {
+        onCommand.Execute();
+    }
+
+    public void TurnOff()
+    {
+        offCommand.Execute();
+    }
 }
-
 
 public interface IDeviceImplementation
 {
     void TurnOn();
-
     void TurnOff();
 }
-
 
 public class LightDevice : Device
 {
     public LightDevice(IDeviceImplementation implementation) : base(implementation)
     {
-    }
-
-    public override void TurnOn()
-    {
-        implementation.TurnOn();
-    }
-
-    public override void TurnOff()
-    {
-        implementation.TurnOff();
     }
 }
 
@@ -123,50 +114,33 @@ public class LightDeviceImplementation : IDeviceImplementation
     public void TurnOn()
     {
         Console.WriteLine("Light device turned on.");
-
     }
 
     public void TurnOff()
     {
         Console.WriteLine("Light device turned off.");
-
     }
 }
-
 
 public class FanDevice : Device
 {
     public FanDevice(IDeviceImplementation implementation) : base(implementation)
     {
     }
-
-    public override void TurnOn()
-    {
-        implementation.TurnOn();
-    }
-
-    public override void TurnOff()
-    {
-        implementation.TurnOff();
-    }
 }
-
 
 public class FanDeviceImplementation : IDeviceImplementation
 {
     public void TurnOn()
     {
         Console.WriteLine("Fan device turned on.");
-
     }
 
     public void TurnOff()
     {
         Console.WriteLine("Fan device turned off.");
-
     }
 }
-
 
 public class Program
 {
@@ -185,11 +159,20 @@ public class Program
         deviceManager.AddDevice("Light1", lightDevice);
         deviceManager.AddDevice("Fan1", fanDevice);
 
-        // Execute commands
-        ICommand turnOnLightCommand = new TurnOnCommand(lightDevice);
-        ICommand turnOffFanCommand = new TurnOffCommand(fanDevice);
+        // Create and set commands for devices
+        ICommand turnOnLightCommand = new TurnOnCommand();
+        ICommand turnOffLightCommand = new TurnOffCommand();
+        ICommand turnOnFanCommand = new TurnOnCommand();
+        ICommand turnOffFanCommand = new TurnOffCommand();
 
-        turnOnLightCommand.Execute();  
-        turnOffFanCommand.Execute();   
+        lightDevice.SetOnCommand(turnOnLightCommand);
+        lightDevice.SetOffCommand(turnOffLightCommand);
+
+        fanDevice.SetOnCommand(turnOnFanCommand);
+        fanDevice.SetOffCommand(turnOffFanCommand);
+
+        // Execute commands
+        lightDevice.TurnOn();
+        fanDevice.TurnOff();
     }
 }
